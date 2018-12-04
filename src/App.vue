@@ -90,6 +90,7 @@
 
 <script>
 import toImage from 'dom-to-image'
+import download from 'downloadjs'
 import GithubCorner from './GithubCorner.vue'
 
 export default {
@@ -147,11 +148,7 @@ export default {
       toImage
         .toBlob(this.$refs.result)
         .then(blob => {
-          const url = window.URL.createObjectURL(blob)
-          const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', `${this.logo.text}.png`)
-          link.click()
+          download(blob, `${this.logo.text}.png`, 'image/png')
           this.downloading = false
         })
         .catch(err => {
