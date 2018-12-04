@@ -89,7 +89,7 @@
     </div>
     <div class="footer">
       An
-      <a href="https://twitter.com/_egoistlily" target="_blank">EGOIST</a>
+      <a href="https://egoist.sh" target="_blank">EGOIST</a>
       Project.
     </div>
   </div>
