@@ -69,12 +69,12 @@
           color: logo.textColor,
           textShadow,
           fontSize: `${logo.textSize}px`,
-          fontFamily: `'${logo.font}'`
+          fontFamily: `logo.font && '${logo.font}'`
         }"
         v-html="result"
       ></div>
 
-      <div class="html" v-if="html">
+      <div class="html" v-if="showHTML">
         <pre><code>{{ html }}</code></pre>
       </div>
 
@@ -82,8 +82,8 @@
         <button v-if="logo.text" class="btn is-primary" @click="download">
           {{ downloading ? 'Downloading...' : 'Download Image' }}
         </button>
-        <button class="btn" @click="toggleHTML">
-          {{ html ? 'Hide' : 'Show' }} HTML
+        <button class="btn" @click="showHTML = !showHTML">
+          {{ showHTML ? 'Hide' : 'Show' }} HTML
         </button>
       </div>
     </div>
@@ -110,7 +110,7 @@ export default {
       count: 0,
       loaded: false,
       downloading: false,
-      html: null,
+      showHTML: false,
 
       logo: {
         text: 'evangelion',
@@ -133,6 +133,21 @@ export default {
 
     result() {
       return this.logo.text.replace(/\n/g, '<br>')
+    },
+
+    html() {
+      return `<div class="my-logo">${this.logo.text}</div>
+<style>
+.my-logo {
+  color: ${this.logo.textColor};
+  font-size: ${this.logo.textSize}px;
+  font-family: "${this.logo.font ||
+    getComputedStyle(this.$refs.result).fontFamily}";
+  font-style: italic;
+  text-transform: uppercase;
+  text-shadow: ${this.textShadow};
+}
+</style>`
     }
   },
 
@@ -178,32 +193,6 @@ export default {
         this.loaded = true
         clearInterval(this.interval)
         this.interval = null
-      }
-    },
-
-    toggleHTML() {
-      if (this.html) {
-        this.html = null
-      } else {
-        const {
-          color,
-          textShadow,
-          fontFamily,
-          fontSize,
-          fontStyle,
-          textTransform
-        } = getComputedStyle(this.$refs.result)
-        this.html = `<div class="my-logo">${this.logo.text}</div>
-<style>
-.my-logo {
-  color: ${color};
-  font-size: ${fontSize};
-  font-family: ${fontFamily};
-  font-style: ${fontStyle};
-  text-transform: ${textTransform};
-  text-shadow: ${textShadow};
-}
-</style>`
       }
     }
   }
