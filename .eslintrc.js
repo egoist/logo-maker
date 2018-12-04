@@ -1,11 +1,7 @@
 module.exports = {
   extends: [
-    'xo',
     'plugin:vue/essential',
+    'xo',
     'plugin:prettier/recommended'
-  ],
-  rules: {
-    indent: ['error', 2],
-    semi: ['error', "never"]
-  }
+  ]
 }

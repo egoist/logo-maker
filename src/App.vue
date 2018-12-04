@@ -19,7 +19,7 @@
         <label class="inline_field">Text Font</label>
         <select class="input" v-model="logo.font">
           <option value="Press Start 2P">Press Start 2P</option>
-          <option :value="null">Default</option>
+          <option value="system">System Font</option>
         </select>
       </div>
 
@@ -69,7 +69,7 @@
           color: logo.textColor,
           textShadow,
           fontSize: `${logo.textSize}px`,
-          fontFamily: `logo.font && '${logo.font}'`
+          fontFamily: logo.font === 'system' ? null : `'${logo.font}'`
         }"
         v-html="result"
       ></div>
@@ -141,8 +141,12 @@ export default {
 .my-logo {
   color: ${this.logo.textColor};
   font-size: ${this.logo.textSize}px;
-  font-family: "${this.logo.font ||
-    getComputedStyle(this.$refs.result).fontFamily}";
+  font-family: "${
+    this.logo.font === 'system'
+      ? `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue`
+      : 'Press Start 2P'
+  }";
   font-style: italic;
   text-transform: uppercase;
   text-shadow: ${this.textShadow};
