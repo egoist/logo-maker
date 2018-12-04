@@ -11,8 +11,8 @@
     </div>
     <div class="container">
       <div class="field is-inline">
-        <label class="inline_field">Title</label>
-        <textarea class="input" rows="1" v-model="logo.title" />
+        <label class="inline_field">Text</label>
+        <textarea class="input" rows="1" v-model="logo.text" />
       </div>
 
       <div class="field is-inline">
@@ -71,12 +71,11 @@
           fontSize: `${logo.textSize}px`,
           fontFamily: `'${logo.font}'`
         }"
-      >
-        {{ logo.title }}
-      </div>
+        v-html="logo.text"
+      ></div>
 
       <div class="actions">
-        <button v-if="logo.title" class="btn is-primary" @click="download">
+        <button v-if="logo.text" class="btn is-primary" @click="download">
           {{ downloading ? 'Downloading...' : 'Download Image' }}
         </button>
       </div>
@@ -105,7 +104,7 @@ export default {
       downloading: false,
 
       logo: {
-        title: 'evangelion',
+        text: 'evangelion',
         textSize: 100,
         textColor: '#05cee9',
         shadowColor: 'rgb(0, 255, 165)',
@@ -147,7 +146,7 @@ export default {
           const url = window.URL.createObjectURL(blob)
           const link = document.createElement('a')
           link.href = url
-          link.setAttribute('download', `${this.logo.title}.png`)
+          link.setAttribute('download', `${this.logo.text}.png`)
           link.click()
           this.downloading = false
         })
