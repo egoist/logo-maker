@@ -77,7 +77,7 @@
 
       <div class="actions">
         <button v-if="logo.title" class="btn is-primary" @click="download">
-          Download Image
+          {{ downloading ? 'Downloading...' : 'Download Image' }}
         </button>
       </div>
     </div>
@@ -102,6 +102,7 @@ export default {
     return {
       count: 0,
       loaded: false,
+      downloading: false,
 
       logo: {
         title: 'evangelion',
@@ -139,13 +140,21 @@ export default {
 
   methods: {
     download() {
-      toImage.toBlob(this.$refs.result).then(blob => {
-        const url = window.URL.createObjectURL(blob)
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', `${this.logo.title}.png`)
-        link.click()
-      })
+      this.downloading = true
+      toImage
+        .toBlob(this.$refs.result)
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = url
+          link.setAttribute('download', `${this.logo.title}.png`)
+          link.click()
+          this.downloading = false
+        })
+        .catch(err => {
+          this.downloading = false
+          console.error(err)
+        })
     },
 
     updateTextColor(e) {
