@@ -1,5 +1,6 @@
 {
   "name": "logo-maker",
+  "description": "Create a simple logo here",
   "private": true,
   "scripts": {
     "build": "poi --prod",
