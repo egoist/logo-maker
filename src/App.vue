@@ -165,7 +165,9 @@ a {
 
 <style scoped>
 #app {
-  font-family: 'Press Start 2P', helvetica, serif;
+  font-family: 'Press Start 2P', -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
   padding: 0 60px;
   margin: 20px 0;
 }
