@@ -9,7 +9,6 @@
     "test": "npm run lint"
   },
   "devDependencies": {
-    "@poi/plugin-eslint": "next",
     "dom-to-image": "^2.6.0",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
