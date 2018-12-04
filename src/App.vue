@@ -88,9 +88,7 @@
       </div>
     </div>
     <div class="footer">
-      An
-      <a href="https://egoist.sh" target="_blank">EGOIST</a>
-      Project.
+      An <a href="https://egoist.sh" target="_blank">EGOIST</a> Project.
     </div>
   </div>
 </template>
@@ -214,8 +212,11 @@ a {
   font-family: 'Press Start 2P', -apple-system, BlinkMacSystemFont, Segoe UI,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
-  padding: 0 60px;
-  margin: 20px 0;
+  margin: 20px 60px;
+
+  @media (max-width: 768px) {
+    margin: 10px;
+  }
 }
 
 .container {
@@ -250,6 +251,10 @@ a {
 
 .field:not(:last-child) {
   margin-bottom: 20px;
+}
+
+.input {
+  width: 100%;
 }
 
 .footer {
