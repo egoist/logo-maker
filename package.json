@@ -1,0 +1,23 @@
+{
+  "name": "logo-maker",
+  "private": true,
+  "scripts": {
+    "build": "poi --prod",
+    "dev": "poi --serve",
+    "lint": "eslint . --ext js --ext vue"
+  },
+  "devDependencies": {
+    "@poi/plugin-eslint": "next",
+    "dom-to-image": "^2.6.0",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-xo": "^0.25.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "poi": "next",
+    "prettier": "^1.15.3",
+    "typeface-press-start-2p": "^0.0.54",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
