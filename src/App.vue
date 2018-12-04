@@ -16,6 +16,14 @@
       </div>
 
       <div class="field is-inline">
+        <label class="inline_field">Text Font</label>
+        <select class="input" v-model="logo.font">
+          <option value="Press Start 2P">Press Start 2P</option>
+          <option :value="null">Default</option>
+        </select>
+      </div>
+
+      <div class="field is-inline">
         <label class="inline_field">Text Size</label>
         <input class="input" type="number" v-model="logo.textSize" />
       </div>
@@ -60,7 +68,8 @@
         :style="{
           color: logo.textColor,
           textShadow,
-          fontSize: `${logo.textSize}px`
+          fontSize: `${logo.textSize}px`,
+          fontFamily: `'${logo.font}'`
         }"
       >
         {{ logo.title }}
@@ -98,7 +107,8 @@ export default {
         title: 'evangelion',
         textSize: 100,
         textColor: '#05cee9',
-        shadowColor: 'rgb(0, 255, 165)'
+        shadowColor: 'rgb(0, 255, 165)',
+        font: 'Press Start 2P'
       }
     }
   },
@@ -214,5 +224,11 @@ a {
 
 .actions {
   margin-top: 20px;
+}
+
+select.input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
 }
 </style>
