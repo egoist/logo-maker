@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   entry: 'src/index',
   plugins: [
@@ -6,14 +8,17 @@ module.exports = {
     }
   ],
   chainWebpack(config) {
-    config.plugin('offline')
-      .use(require('offline-plugin'), [{
-        ServiceWorker: {
-          output: 'service-worker.js',
-          events: true
-        },
-        AppCache: false,
-        excludes: ['favicon.ico']
-      }])
+    if (isProd) {
+      config.plugin('offline').use(require('offline-plugin'), [
+        {
+          ServiceWorker: {
+            output: 'service-worker.js',
+            events: true
+          },
+          AppCache: false,
+          excludes: ['favicon.ico']
+        }
+      ])
+    }
   }
 }

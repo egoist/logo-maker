@@ -5,7 +5,8 @@
   "scripts": {
     "build": "poi --prod",
     "dev": "poi --serve",
-    "lint": "eslint . --ext js --ext vue"
+    "lint": "eslint . --ext js --ext vue",
+    "test": "npm run lint"
   },
   "devDependencies": {
     "@poi/plugin-eslint": "next",
