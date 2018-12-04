@@ -74,9 +74,16 @@
         v-html="result"
       ></div>
 
+      <div class="html" v-if="html">
+        <pre><code>{{ html }}</code></pre>
+      </div>
+
       <div class="actions">
         <button v-if="logo.text" class="btn is-primary" @click="download">
           {{ downloading ? 'Downloading...' : 'Download Image' }}
+        </button>
+        <button class="btn" @click="toggleHTML">
+          {{ html ? 'Hide' : 'Show' }} HTML
         </button>
       </div>
     </div>
@@ -103,6 +110,7 @@ export default {
       count: 0,
       loaded: false,
       downloading: false,
+      html: null,
 
       logo: {
         text: 'evangelion',
@@ -170,6 +178,32 @@ export default {
         this.loaded = true
         clearInterval(this.interval)
         this.interval = null
+      }
+    },
+
+    toggleHTML() {
+      if (this.html) {
+        this.html = null
+      } else {
+        const {
+          color,
+          textShadow,
+          fontFamily,
+          fontSize,
+          fontStyle,
+          textTransform
+        } = getComputedStyle(this.$refs.result)
+        this.html = `<div class="my-logo">${this.logo.text}</div>
+<style>
+.my-logo {
+  color: ${color};
+  font-size: ${fontSize};
+  font-family: ${fontFamily};
+  font-style: ${fontStyle};
+  text-transform: ${textTransform};
+  text-shadow: ${textShadow};
+}
+</style>`
       }
     }
   }
@@ -239,5 +273,11 @@ select.input {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
+}
+
+pre {
+  white-space: pre-wrap;
+  color: rgb(212, 0, 255);
+  line-height: 30px;
 }
 </style>
