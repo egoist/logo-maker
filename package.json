@@ -14,6 +14,7 @@
     "eslint-config-xo": "^0.25.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^5.0.0",
+    "offline-plugin": "^5.0.6",
     "poi": "next",
     "prettier": "^1.15.3",
     "typeface-press-start-2p": "^0.0.54",
