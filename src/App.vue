@@ -96,7 +96,7 @@ export default {
 
       logo: {
         title: 'evangelion',
-        textSize: 70,
+        textSize: 100,
         textColor: '#05cee9',
         shadowColor: 'rgb(0, 255, 165)'
       }
@@ -165,7 +165,7 @@ a {
 
 <style scoped>
 #app {
-  font-family: 'press start 2p', helvetica, serif;
+  font-family: 'Press Start 2P', helvetica, serif;
   padding: 0 60px;
   margin: 20px 0;
 }
@@ -195,6 +195,9 @@ a {
   font-weight: 700;
   font-style: italic;
   text-transform: uppercase;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
 }
 
 .field:not(:last-child) {
