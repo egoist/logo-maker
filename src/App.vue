@@ -71,7 +71,7 @@
           fontSize: `${logo.textSize}px`,
           fontFamily: `'${logo.font}'`
         }"
-        v-html="logo.text"
+        v-html="result"
       ></div>
 
       <div class="actions">
@@ -120,6 +120,10 @@ export default {
         .fill(null)
         .map((v, i) => `${shadowColor} ${i + 1}px ${i + 1}px 0px`)
         .join(', ')
+    },
+
+    result() {
+      return this.logo.text.replace(/\n/g, '<br>')
     }
   },
 
