@@ -111,7 +111,7 @@ export default {
       showHTML: false,
 
       logo: {
-        text: 'evangelion',
+        text: 'EVANGELION',
         textSize: 100,
         textColor: '#05cee9',
         shadowColor: 'rgb(0, 255, 165)',
@@ -146,7 +146,6 @@ export default {
       : 'Press Start 2P'
   }";
   font-style: italic;
-  text-transform: uppercase;
   text-shadow: ${this.textShadow};
 }
 </style>`
@@ -243,7 +242,6 @@ a {
 .result {
   font-weight: 700;
   font-style: italic;
-  text-transform: uppercase;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
