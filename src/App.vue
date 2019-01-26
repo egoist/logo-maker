@@ -261,6 +261,7 @@ export default {
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = this.createFontUrl(font, this.logo.text)
+      link.crossOrigin = 'anonymous'
       link.onload = () => {
         console.log(`...loaded font`, font)
         this.loadingFont = false
