@@ -199,7 +199,7 @@ export default {
 
   methods: {
     async fetchFonts() {
-      const data = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.POI_APP_GOOGLE_FONT_API_KEY}`)
+      const data = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.POI_APP_GOOGLE_FONT_API_KEY}&sort=popularity`)
         .then(res => res.json())
       this.fonts = this.groupFonts(data.items)
     },
