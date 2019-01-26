@@ -8,7 +8,7 @@ module.exports = async () => {
   const { items } = await fetch(
     `https://www.googleapis.com/webfonts/v1/webfonts?key=${
       process.env.POI_APP_GOOGLE_FONT_API_KEY
-    }&sort=popularity`,
+    }`,
     {
       agent:
         parsedUrl &&
