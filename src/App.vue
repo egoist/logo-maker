@@ -217,10 +217,7 @@ export default {
     },
 
     createFontUrl(font, text) {
-      const useMirror = /^zh(-|$)/.test(navigator.language)
-      const host = useMirror
-        ? 'fonts.proxy.ustclug.org'
-        : 'fonts.googleapis.com'
+      const host = 'fonts.googleapis.com'
       return `https://${host}/css?family=${font.replace(/\s/g, '+')}`
     }
   },
