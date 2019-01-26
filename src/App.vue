@@ -258,12 +258,17 @@ export default {
 
   watch: {
     'logo.font'(font) {
+      const existings = document.querySelectorAll('[data-logo-maker]')
+      Array.prototype.forEach.call(existings, el => {
+        el.parentNode.removeChild(el)
+      })
       console.log(`...loading font`, font)
       this.loadingFont = true
       const link = document.createElement('link')
       link.rel = 'stylesheet'
       link.href = this.createFontUrl(font, this.logo.text)
       link.crossOrigin = 'anonymous'
+      link.setAttribute('data-logo-maker', true)
       link.onload = () => {
         console.log(`...loaded font`, font)
         this.loadingFont = false
