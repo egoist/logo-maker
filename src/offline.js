@@ -7,8 +7,11 @@ runtime.install({
   },
   onUpdateReady() {
     console.log('New updates are available')
-    snackbar.show(() => {
-      runtime.applyUpdate()
+    snackbar.show({
+      confirm: () => {
+        runtime.applyUpdate()
+      },
+      autoClose: true
     })
   },
   onUpdated() {

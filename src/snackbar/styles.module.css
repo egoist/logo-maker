@@ -9,8 +9,8 @@
   padding: 16px;
   position: fixed;
   z-index: 1;
-  left: 50%;
-  bottom: 30px;
+  right: 20px;
+  bottom: 20px;
 }
 
 .show {
