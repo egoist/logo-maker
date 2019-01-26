@@ -1,5 +1,5 @@
-import snackbar from './snackbar'
 import * as runtime from 'offline-plugin/runtime'
+import snackbar from './snackbar'
 
 runtime.install({
   onInstalled() {
