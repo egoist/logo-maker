@@ -82,7 +82,8 @@
           fontStyle: logo.textItalic ? 'italic' : 'normal',
           fontSize: `${logo.textSize}px`,
           fontFamily: logo.font === 'system' ? null : `'${logo.font}'`,
-          fontWeight: logo.textWeight
+          fontWeight: logo.textWeight,
+          lineHeight: '1.1'
         }"
         v-html="loadingFont ? 'loading font...' : result"
       ></div>
@@ -174,6 +175,7 @@ export default {
   font-style: ${JSON.stringify(this.logo.textItalic ? 'italic' : 'normal')};
   font-weight: ${this.logo.textWeight};
   text-shadow: ${this.textShadow};
+  line-height: 1.1;
 }
 </style>`
     }
@@ -325,6 +327,7 @@ label {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  margin-bottom: 20px;
 }
 
 .field:not(:last-child) {
