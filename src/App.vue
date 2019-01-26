@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <div class="container is-center">
-      <GithubCorner />
-      <h1 class="logo"><i class="icon heart is-large" />logo maker</h1>
+      <GithubCorner/>
+      <h1 class="logo">
+        <i class="icon heart is-large"/>logo maker
+      </h1>
       <h2 class="intro">
         .........loading {{ count }} dependencies to create a simple logo....{{
-          loaded ? 'loaded' : ''
+        loaded ? 'loaded' : ''
         }}
       </h2>
     </div>
     <div class="container">
       <div class="field is-inline">
         <label class="inline_field">Text</label>
-        <textarea class="input" rows="1" v-model="logo.text" />
+        <textarea class="input" rows="1" v-model="logo.text"/>
       </div>
 
       <div class="field is-inline">
@@ -23,20 +25,19 @@
             :key="font.name"
             :value="font.name"
             :selected="logo.font === font.name"
-            :disabled="font.disabled">
-            {{ font.name }}
-          </option>
+            :disabled="font.disabled"
+          >{{ font.name }}</option>
         </select>
       </div>
 
       <div class="field is-inline">
         <label class="inline_field">Text Size</label>
-        <input class="input" type="number" v-model="logo.textSize" />
+        <input class="input" type="number" v-model="logo.textSize">
       </div>
 
       <div class="field is-inline">
         <label class="inline_field">Text Weight</label>
-        <input class="input" type="number" min="300" max="700" step="100" v-model="logo.textWeight" />
+        <input class="input" type="number" min="300" max="700" step="100" v-model="logo.textWeight">
       </div>
 
       <div class="field is-inline">
@@ -47,13 +48,8 @@
           type="text"
           :style="{ backgroundColor: logo.textColor }"
           @click="$refs.textColorPicker.click()"
-        />
-        <input
-          ref="textColorPicker"
-          type="color"
-          style="display: none"
-          @input="updateTextColor"
-        />
+        >
+        <input ref="textColorPicker" type="color" style="display: none" @input="updateTextColor">
       </div>
 
       <div class="field is-inline">
@@ -64,13 +60,8 @@
           type="text"
           :style="{ backgroundColor: logo.shadowColor }"
           @click="$refs.shadowColor.click()"
-        />
-        <input
-          ref="shadowColor"
-          type="color"
-          style="display: none"
-          @input="updateShadowColor"
-        />
+        >
+        <input ref="shadowColor" type="color" style="display: none" @input="updateShadowColor">
       </div>
 
       <div
@@ -90,7 +81,8 @@
 
       <div class="field">
         <label style="display:inline-block">
-          <input type="checkbox" class="checkbox" v-model="logo.textItalic"> <span>Italic</span>
+          <input type="checkbox" class="checkbox" v-model="logo.textItalic">
+          <span>Italic</span>
         </label>
       </div>
 
@@ -99,16 +91,16 @@
       </div>
 
       <div class="actions">
-        <button v-if="logo.text" class="btn is-primary" @click="download">
-          {{ downloading ? 'Downloading...' : 'Download Image' }}
-        </button>
-        <button class="btn" @click="showHTML = !showHTML">
-          {{ showHTML ? 'Hide' : 'Show' }} HTML
-        </button>
+        <button
+          v-if="logo.text"
+          class="btn is-primary"
+          @click="download"
+        >{{ downloading ? 'Downloading...' : 'Download Image' }}</button>
+        <button class="btn" @click="showHTML = !showHTML">{{ showHTML ? 'Hide' : 'Show' }} HTML</button>
       </div>
     </div>
-    <div class="footer">
-      An <a href="https://egoist.sh" target="_blank">EGOIST</a> Project.
+    <div class="footer">An
+      <a href="https://egoist.sh" target="_blank">EGOIST</a> Project.
     </div>
   </div>
 </template>
@@ -116,7 +108,7 @@
 <script>
 import toImage from 'dom-to-image'
 import download from 'downloadjs'
-import fetch from 'unfetch'
+import { fonts } from './fonts.eval'
 import GithubCorner from './GithubCorner.vue'
 
 export default {
@@ -131,9 +123,7 @@ export default {
       downloading: false,
       showHTML: false,
       loadingFont: false,
-      fonts: [{
-        name: 'Press Start 2P'
-      }],
+      fonts,
 
       logo: {
         text: 'EVANGELION',
@@ -189,8 +179,6 @@ export default {
         this.stopInterval()
       }
     }, 50)
-
-    this.fetchFonts()
   },
 
   beforeDestroy() {
@@ -198,27 +186,6 @@ export default {
   },
 
   methods: {
-    async fetchFonts() {
-      const data = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.POI_APP_GOOGLE_FONT_API_KEY}&sort=popularity`)
-        .then(res => res.json())
-      this.fonts = this.groupFonts(data.items)
-    },
-
-    groupFonts(fonts) {
-      const categories = {}
-      for (const font of fonts) {
-        categories[font.category] = categories[font.category] || []
-        categories[font.category].push({ name: font.family })
-      }
-      return Object.keys(categories).reduce((res, category) => {
-        return [
-          ...res,
-          { disabled: true, name: category },
-          ...categories[category]
-        ]
-      }, [])
-    },
-
     download() {
       this.downloading = true
       toImage
@@ -251,7 +218,9 @@ export default {
 
     createFontUrl(font, text) {
       const useMirror = /^zh(-|$)/.test(navigator.language)
-      const host = useMirror ? 'fonts.proxy.ustclug.org' : 'fonts.googleapis.com'
+      const host = useMirror
+        ? 'fonts.proxy.ustclug.org'
+        : 'fonts.googleapis.com'
       return `https://${host}/css?family=${font.replace(/\s/g, '+')}`
     }
   },
