@@ -18,14 +18,25 @@
       <div class="field is-inline">
         <label class="inline_field">Text Font</label>
         <select class="input" v-model="logo.font">
-          <option value="Press Start 2P">Press Start 2P</option>
-          <option value="system">System Font</option>
+          <option
+            v-for="font in fonts"
+            :key="font.name"
+            :value="font.name"
+            :selected="logo.font === font.name"
+            :disabled="font.disabled">
+            {{ font.name }}
+          </option>
         </select>
       </div>
 
       <div class="field is-inline">
         <label class="inline_field">Text Size</label>
         <input class="input" type="number" v-model="logo.textSize" />
+      </div>
+
+      <div class="field is-inline">
+        <label class="inline_field">Text Weight</label>
+        <input class="input" type="number" min="300" max="700" step="100" v-model="logo.textWeight" />
       </div>
 
       <div class="field is-inline">
@@ -68,11 +79,19 @@
         :style="{
           color: logo.textColor,
           textShadow,
+          fontStyle: logo.textItalic ? 'italic' : 'normal',
           fontSize: `${logo.textSize}px`,
-          fontFamily: logo.font === 'system' ? null : `'${logo.font}'`
+          fontFamily: logo.font === 'system' ? null : `'${logo.font}'`,
+          fontWeight: logo.textWeight
         }"
-        v-html="result"
+        v-html="loadingFont ? 'loading font...' : result"
       ></div>
+
+      <div class="field">
+        <label style="display:inline-block">
+          <input type="checkbox" class="checkbox" v-model="logo.textItalic"> <span>Italic</span>
+        </label>
+      </div>
 
       <div class="html" v-if="showHTML">
         <pre><code>{{ html }}</code></pre>
@@ -96,6 +115,7 @@
 <script>
 import toImage from 'dom-to-image'
 import download from 'downloadjs'
+import fetch from 'unfetch'
 import GithubCorner from './GithubCorner.vue'
 
 export default {
@@ -109,13 +129,19 @@ export default {
       loaded: false,
       downloading: false,
       showHTML: false,
+      loadingFont: false,
+      fonts: [{
+        name: 'Press Start 2P'
+      }],
 
       logo: {
         text: 'EVANGELION',
         textSize: 100,
         textColor: '#05cee9',
         shadowColor: 'rgb(0, 255, 165)',
-        font: 'Press Start 2P'
+        font: 'Press Start 2P',
+        textItalic: true,
+        textWeight: 500
       }
     }
   },
@@ -143,9 +169,10 @@ export default {
     this.logo.font === 'system'
       ? `-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue`
-      : 'Press Start 2P'
+      : this.logo.font
   }";
-  font-style: italic;
+  font-style: ${JSON.stringify(this.logo.textItalic ? 'italic' : 'normal')};
+  font-weight: ${this.logo.textWeight};
   text-shadow: ${this.textShadow};
 }
 </style>`
@@ -160,6 +187,8 @@ export default {
         this.stopInterval()
       }
     }, 50)
+
+    this.fetchFonts()
   },
 
   beforeDestroy() {
@@ -167,6 +196,27 @@ export default {
   },
 
   methods: {
+    async fetchFonts() {
+      const data = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.POI_APP_GOOGLE_FONT_API_KEY}`)
+        .then(res => res.json())
+      this.fonts = this.groupFonts(data.items)
+    },
+
+    groupFonts(fonts) {
+      const categories = {}
+      for (const font of fonts) {
+        categories[font.category] = categories[font.category] || []
+        categories[font.category].push({ name: font.family })
+      }
+      return Object.keys(categories).reduce((res, category) => {
+        return [
+          ...res,
+          { disabled: true, name: category },
+          ...categories[category]
+        ]
+      }, [])
+    },
+
     download() {
       this.downloading = true
       toImage
@@ -195,6 +245,31 @@ export default {
         clearInterval(this.interval)
         this.interval = null
       }
+    },
+
+    createFontUrl(font, text) {
+      const useMirror = /^zh(-|$)/.test(navigator.language)
+      const host = useMirror ? 'fonts.proxy.ustclug.org' : 'fonts.googleapis.com'
+      return `https://${host}/css?family=${font.replace(/\s/g, '+')}`
+    }
+  },
+
+  watch: {
+    'logo.font'(font) {
+      console.log(`...loading font`, font)
+      this.loadingFont = true
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = this.createFontUrl(font, this.logo.text)
+      link.onload = () => {
+        console.log(`...loaded font`, font)
+        this.loadingFont = false
+      }
+      link.onerror = err => {
+        this.loadingFont = false
+        console.log(`...failed to load font: ${font} becuase`, err)
+      }
+      document.head.appendChild(link)
     }
   }
 }
@@ -216,6 +291,10 @@ a {
   @media (max-width: 768px) {
     margin: 10px;
   }
+}
+
+label {
+  user-select: none;
 }
 
 .container {

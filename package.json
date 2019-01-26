@@ -17,10 +17,11 @@
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^5.0.0",
     "offline-plugin": "^5.0.6",
-    "poi": "next",
+    "poi": "^12.5.2",
     "postcss-nested": "^4.1.0",
     "prettier": "^1.15.3",
     "typeface-press-start-2p": "^0.0.54",
+    "unfetch": "^4.0.1",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.5.17"
   }
