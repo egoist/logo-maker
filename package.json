@@ -9,13 +9,12 @@
     "test": "npm run lint"
   },
   "devDependencies": {
-    "dom-to-image": "^2.6.0",
-    "downloadjs": "^1.4.7",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-xo": "^0.25.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-vue": "^5.0.0",
+    "import-http": "^0.2.1",
     "node-fetch": "^2.3.0",
     "offline-plugin": "^5.0.6",
     "poi": "^12.5.2",

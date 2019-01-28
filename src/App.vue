@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import toImage from 'dom-to-image'
-import download from 'downloadjs'
+import toImage from 'https://unpkg.com/dom-to-image@2.6.0'
+import download from 'https://unpkg.com/downloadjs@1.4.7'
 import { fonts } from './fonts.eval'
 import GithubCorner from './GithubCorner.vue'
 
