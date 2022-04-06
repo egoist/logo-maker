@@ -74,7 +74,8 @@
           fontSize: `${logo.textSize}px`,
           fontFamily: logo.font === 'system' ? null : `'${logo.font}'`,
           fontWeight: logo.textWeight,
-          lineHeight: '1.1'
+          lineHeight: '1.1',
+          textAlign: logo.textCenter ? 'center' : 'initial'
         }"
         v-html="loadingFont ? 'loading font...' : result"
       ></div>
@@ -83,6 +84,10 @@
         <label style="display:inline-block">
           <input type="checkbox" class="checkbox" v-model="logo.textItalic">
           <span>Italic</span>
+        </label>
+        <label style="display:inline-block">
+          <input type="checkbox" class="checkbox" v-model="logo.textCenter" />
+          <span>Center</span>
         </label>
       </div>
 
@@ -132,6 +137,7 @@ export default {
         shadowColor: 'rgb(0, 255, 165)',
         font: 'Press Start 2P',
         textItalic: true,
+        textCenter: false,
         textWeight: 500
       }
     }
